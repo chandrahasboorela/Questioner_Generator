@@ -1,0 +1,68 @@
+.dropDown{
+    padding-left: 0px;
+}
+.nav-item{
+    font-size: 18px;
+    padding: 5px;
+    font-weight: 400;
+    cursor: pointer;
+    border-top-left-radius: 30px;
+    width:170px;
+    text-align: center;
+  
+    border-bottom: 0px;
+}
+.nav-tabs .active{
+    background-color: initial;
+    font-size: 22px;
+    font-weight: bold;
+    border-top-width:0px;
+    border-top-left-radius: 0px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.fake-link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.modal-content{
+    border-radius: 0px;
+}
+.modal-header{
+    border-radius: 0px;
+}

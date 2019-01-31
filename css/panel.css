@@ -1,0 +1,23 @@
+.question{
+    background-color: white;
+    border: 0px;
+    border-radius: 5px;
+    padding: 10px;
+}
+.c-img{
+    width: 500px;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+.c-img:hover{
+    width: 520px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin:-10px;
+}
+.pan{
+    display: none;
+}
+#panel-insert{
+    display: block;
+}
