@@ -1,13 +1,8 @@
 <?php
-   // include("dbconfig.php");
+    include("dbconfig.php");
     $id = isset($_POST['username']) ?  $_POST['username']  : '';
     $pwd = isset($_POST['password']) ?  $_POST['password']  : '';
-
     
-    $servername = "localhost";
-    $username = "root";
-    $password = "321654";
-    $dbname = "questionpaper";
     $conn = new mysqli($servername, $username, $password,$dbname);
     if($id!=""&&$pwd!=""){
         if($conn->connect_error){

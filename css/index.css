@@ -8,8 +8,8 @@ font-family: sans-serif;
 }
 .login-box{
 width: 320px;
-height: 420px;
-background: rgba(0, 0, 0, 0.5);
+height: 425px;
+background: rgba(0, 0, 0, 0.8);
 color: #fff;
 top: 50%;
 left: 50%;
@@ -42,7 +42,7 @@ font-weight: bold;
 width: 100%;
 margin-bottom: 20px;
 }
-.login-box input[type="text"], input[type="password"]
+.login-box input[type="text"], input[type="password"],input[type="email"]
 {
 border: none;
 border-bottom: 1px solid #fff;
@@ -68,4 +68,6 @@ cursor: pointer;
 background: #39dc79;
 color: #000;
 }
-
+w-full{
+    width:0100%;
+}

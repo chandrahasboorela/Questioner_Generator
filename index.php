@@ -1,12 +1,14 @@
 <html>
-
+<?php
+    session_start();
+?>
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="theme-color" content="#049dbf">
         <meta name="mobile-web-app-capable" content="yes">
-        <link rel="shortcut icon" href="imgs/icon.png">
+        <link rel="shortcut icon" href="images/icon.png">
         <link rel="stylesheet" href="css/panel.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -24,20 +26,27 @@
         crossorigin="anonymous">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
     <title>loginform</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
 <body>
     <div class="container-fluid row login-box">
-        <img src="../images/avatar.png" class="avatar">
+        <img src="images/avatar.png" class="avatar">
         <h1>Login here</h1>
-        <form class="col-12" action="loginvalidate.php" method="POST">
+        <form class="col-12" action="loginvalidate.php"  method="POST">
             <p>user name</p>
-            <input type="text" name="username" placeholder="enter user name">
+            <input type="text" name="username" placeholder=" Enter user name">
             <p>password</P>
-            <input type="password" name="password" placeholder="enter password">
-            <input type="submit" name="submit" value="login">
-            <a href="#">forgot password</a>
+            <input type="password" name="password" placeholder=" Enter password">
+            <input type="submit" name="submit" <?php if(isset($_SESSION['failed'])) if($_SESSION['failed']==1) echo 'style="margin-bottom: 10px;"';?> value="login">
+            <?php 
+            if(isset($_SESSION['failed']))
+                if($_SESSION['failed']==1)
+                    echo '<div class="text-center mb-1 ">                <p style="color:red; font-size:14px; font-family:monospace;margin:-5px;">Incorrect username or password! Tryagain</p>            </div>'
+            ?>    
+            <div class="text-center">
+                <a href="forgotpwd.php">forgot password</a>
+            </div>
         </form>
     </div>
 </body>

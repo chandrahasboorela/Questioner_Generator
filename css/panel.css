@@ -5,12 +5,12 @@
     padding: 10px;
 }
 .c-img{
-    width: 500px;
+    width: 400px;
     border-radius: 50%;
     border: 2px solid black;
 }
 .c-img:hover{
-    width: 520px;
+    width: 420px;
     border-radius: 50%;
     cursor: pointer;
     margin:-10px;

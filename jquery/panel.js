@@ -1,6 +1,4 @@
 $(function() {
-var numberOfFiles = 0;
-var boolNewRecord = 1;
 
 //pannel tabs insert, delete, edit 
 function noTabs(){
@@ -9,84 +7,74 @@ function noTabs(){
 $(".nav-item").click(function(){
     noTabs();
     $( this ).toggleClass( "active" );
-    var property = "4px solid "+$(this).css("background-color");
+    var property = "5px solid "+$(this).css("background-color");
     //console.log(property);
     $("#Panel").css("border",property);
 });    
+//clear panel contents 
+function clearPanel(){
+    $(".pan").css("display", "none");
+}
+
+//tabls click action 
+$(".top-tab").click(function (e) {
+    e.preventDefault();
+    var id = $(this).attr('id');
+    id = "#panel-"+id;
+    clearPanel();
+    $(id).css("display", "block");
+});
 
 //set default 
 function setDefault(){
     $("input:file").val('').clone(true);
-    $("#question").val(''),
-    $("#comment").val(''),
-    $("#end").html('');
-    numberOfFiles=0;
-
+    $("#question").val('');
+    $("#comment").val('');
 }
-function removeAlerts(){
-    $("#imglist").css("display","none");
-    $(".progress-bar").animate({ width: '0%' });
-        $("#progressPercent").html("");
-}
-
-$("#question").click(function(){
-    if(boolNewRecord==0){
-        removeAlerts();
-        boolNewRecord=1;
-    }
-});
-// Create recored : 3 steps create new record with random number, update that record with the data , upload files -> sequence process  
+// Create recored : 2 steps:  inserts question to db, retrives its sno uploads image with that name  
 function createRecord(){
-    var tempkey = 0;
+    var question = $("#question").val();
+    var comment = $("#comment").val();
+    var subject = $("#subject").val();
+    var unit = $("#unit").val();
+    var marks = $("#marks").val();
     $.ajax({
-        url:"createRecord.php",
-        method:"POST",
-        data:{
-            passWOrd:"aFGKKJVYU5613",
-            tablename : "questions_CSE"
+        type: "POST",
+        url: "insertquestion.php",
+        data: {
+            question:question,
+            comment:comment,
+            subject:subject,
+            unit:unit,
+            marks:marks
         },
-        success:function(e){
-            console.log(e);
-            if(e[0]=='1'){
-                $(".progress-bar").animate({ width: '5%'});
-                $("#progressPercent").html("Initiated");
-                tempkey = e[1];
-            var questionObj ={
-                question:$("#question").val(),
-                subject:$("#subject option:selected").val(),
-                unit:$("#unit option:selected").val(),
-                marks:$("#marks option:selected").val(),
-                comments:$("#comment").val(),
-                noOfFiles:numberOfFiles,
-                qid:e[2]
-            }
-            $.ajax({
-                url:"updateDbms.php",
-                method : "POST",
-                data:{
-                    passWOrd: "aFGKKJVYU5613",
-                    tempkey:tempkey,
-                    operation: "add",
-                    questionObj:JSON.stringify(questionObj)
-                },
-                success:function(e){
-                    console.log(e);
-                    if(e.status==1){
-                        $("#errorDropdown").slideUp();
-                        $(".progress-bar").animate({ width: '60%' }, 'slow');
-                        imageUpload(filess,e.qid);
-                        $(".progress-bar").animate({ width: '100%' }, 'slow',function(){
-                            $("#progressPercent").html("100% Uploaded!");
-                        });
-                        setDefault();
-                        boolNewRecord = 0;
-                    }
-                    else{
-                        $("#errorDropdown").html(e.msg);
-                        $("#errorDropdown").slideDown();
-                    }
+        success: function (e) {
+            if(e.status == 1){
+                console.log(e);
+                var sno = e.data.sno;
+                var subid = e.data.subid;
+                if($('#file').get(0).files.length != 0){
+                    var fd = new FormData();
+                    var files = $('#file')[0].files[0];
+                    fd.append('file',files);
+                    fd.append('name',sno);
+                    fd.append('subid',subid);
+                    console.log("fiels");
+                    $.ajax({
+                        url: 'imageupload.php',
+                        type: 'post',
+                        data: fd,
+                        contentType:false,
+                        processData:false,
+                        success: function(response){
+                            if(response != 0){ 
+                                alert("uploaded");
+                            }else{
+                                alert('file not uploaded');
+                            }
+                        },
+                    });
                 }
-            });
             }
         }
     });
@@ -95,46 +83,5 @@ function createRecord(){
 $("#submit").click(function(){
     createRecord();
 });
-function clearPanel(){
-    $(".pan").css("display", "none");
-}
-function fetchData(number){
-    
-}
-//
-$(".top-tab").click(function (e) {
-    e.preventDefault();
-    var id = $(this).attr('id');
-    id = "#panel-"+id;
-    clearPanel();
-    $(id).css("display", "block");
-    fetchData(id);
-});
-
-
-//images upload 
-    $("#but_upload").click(function(){
-        alert(0);
-        var fd = new FormData();
-        var files = $('#file')[0].files[0];
-        fd.append('file',files);
-        console.log(fd);
-        $.ajax({
-            url: 'imageupload.php',
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response){
-                if(response != 0){
-                    // $("#img").attr("src",response); 
-                    // $(".preview img").show(); // Display image element
-                    alert("uploaded");
-                }else{
-                    alert('file not uploaded');
-                }
-            },
-        });
-    });
 
 });

@@ -1,14 +1,9 @@
 <?php
-   // include("dbconfig.php");
+    session_start();
+    include("dbconfig.php");
     $id = isset($_POST['username']) ?  $_POST['username']  : '';
     $pwd = isset($_POST['password']) ?  $_POST['password']  : '';
-
-    echo $id.$pwd;
-    $servername = "localhost";
-    $username = "root";
-    $password = "321654";
-    $dbname = "questionpaper";
-    $conn = new mysqli($servername, $username, $password,$dbname);
+    //$_SESSION["failed"]=1;
     if($id!=""&&$pwd!=""){
         if($conn->connect_error){
             die("Connection Failed  ".$conn->connect_error);
@@ -27,19 +22,27 @@
                     
                     $_SESSION["key"]="9FOj92VfeSbTQ54M";
                     $_SESSION["id"]=$id;
-                    $_SESSION["sno"]=$sno;
+                    $_SESSION["tid"]=$sno;
                     $_SESSION["name"]=$name;
                     //echo $_SESSION["name"];
-                    $_SESSION["lock"]=0;
-                    header('Location:http://localhost/QuestionPaperGenerator/panel.html');
+                    $_SESSION["failed"]=0;
+                    $sdate = date('Y-m-d H:i:s');
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    $stmt = $conn->prepare("INSERT INTO log VALUES('',?,?,?)");
+                    $stmt->bind_param("dss",$sno,$ip,$sdate);
+                    $stmt->execute();
+
+                    header('Location:panel.html');
                 }
                 else{
-                    header('Location:raghu/index.html');
+                    $_SESSION["failed"]=1;
+                    header('Location:index.php');
                 }
-                $_SESSION["lock"]=1;
             $stmt->close();
         }
     }   
-        else
-            header("Location:raghu/index.html");
+        else{
+            $_SESSION["failed"]=1;
+            header("Location:   index.php");
+        }
 ?>
