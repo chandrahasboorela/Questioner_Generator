@@ -26,6 +26,9 @@
       }
     @media print
     {    
+        .tooltiptext{
+            display:none;
+        }
         .no-print, .no-print *
         {
             display: none !important;
@@ -35,7 +38,14 @@
             padding:0px;    
         }
     }
-    
+   
+            tr:hover{
+        background-color:black;
+        color:white;
+    }
+    tr{
+        width:100%;
+    }
     h1{
             background-color:wheat;
             padding:15px;
@@ -60,9 +70,42 @@
     }
     p{
         margin: 5px;
-    }
+    } 
+    .tooltip {
+  position: relative;
+  display: inline-block;
+}
 
-    </style>
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 150%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+</style>
     <title>Worksheet</title>
 </head>
 <body>
@@ -93,12 +136,13 @@
                                         $unit = $row['unit'];
                                         $marks = $row['marks'];
                                         echo <<<EOL
-                                                <tr title='$unit'>
+                                                <tr >
                                                     <td valign="top" class="sno" title='$sno'>$i</td>
-                                                    <td>
+                                                    <td title='$comment' class="tooltip">
+                                                            <span class="tooltiptext">$comment</span>
                                                             <p>$question</p>
                                                     </td>
-                                                    <td valign="top" class="sno">$marks M</td>
+                                                    <td valign="top" class="sno" title='$unit'>$marks M</td>
                                                 </tr>
 EOL;
                                     $i++;
