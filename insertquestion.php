@@ -17,8 +17,9 @@ if($conn->connect_error){
 }
 else
 {   //trim($question);
-    if($question!= '' &&  $unit!= '' && $marks!= '' && $subject!= '' ){
+    if($question!= '' &&  $unit!= '' && $marks!= '' && $subject!= '' &&$_SESSION['tid']!=''){
             $sql= "INSERT INTO ".$subject." VALUES('',?,?,?,?,?);";
+            //$sql= "INSERT INTO ".$subject." VALUES('','234567890','234',3,2,1);";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ssddd",$question,$comment,$unit,$marks,$_SESSION['tid']);  
             //print_r($conn->error_list);
@@ -26,7 +27,7 @@ else
             if ($result) 
             {
                 $sql1 = "SELECT (SELECT sno FROM ".$subject." WHERE question= ? ) AS sno , (SELECT l.subid FROM subjectlist l WHERE l.name = '".$subject."') AS subid";
-                $stmt1 = $conn->prepare($sql1); 
+                $stmt1 = $conn->prepare($sql1);
                 $stmt1->bind_param("s",$question);
                 $result = $stmt1->execute();
                 $stmt1->store_result();

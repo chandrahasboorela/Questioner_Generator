@@ -27,10 +27,14 @@ $(".top-tab").click(function (e) {
 
 //set default 
 function setDefault(){
-    $("input:file").val('').clone(true);
+    $("input:file").val('');
     $("#question").val('');
     $("#comment").val('');
 }
+//worksheet{}
+$("#worksheet-cimg").click(function () {    
+    $("#worksheet-submit").click();
+});
 // Create recored : 2 steps:  inserts question to db, retrives its sno uploads image with that name  
 function createRecord(){
     var question = $("#question").val();
@@ -50,7 +54,7 @@ function createRecord(){
         },
         success: function (e) {
             if(e.status == 1){
-                console.log(e);
+                //console.log(e);
                 var sno = e.data.sno;
                 var subid = e.data.subid;
                 if($('#file').get(0).files.length != 0){
@@ -59,7 +63,6 @@ function createRecord(){
                     fd.append('file',files);
                     fd.append('name',sno);
                     fd.append('subid',subid);
-                    console.log("fiels");
                     $.ajax({
                         url: 'imageupload.php',
                         type: 'post',
@@ -67,13 +70,16 @@ function createRecord(){
                         contentType:false,
                         processData:false,
                         success: function(response){
-                            if(response != 0){ 
-                                alert("uploaded");
+                            if(response != 0){
+                                setDefault();
                             }else{
                                 alert('file not uploaded');
                             }
                         },
                     });
+                }
+                else{
+                    setDefault();
                 }
             }
         }

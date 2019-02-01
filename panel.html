@@ -270,10 +270,12 @@ session_start();
                         </div>
                         <!-- Worksheet -->
                         <div class="container-fluid pan " style="padding:10px 7%;" id="panel-worksheet">
+                            <form action="worksheet.php" id="worksheet-form" method="POST" target="_blank" >
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <select name="" id="" class="form-control">
-                                        <option value="">asd</option>
+                                    <select name="subid" id="" class="form-control">
+                                        <option value="testsubject">testsubject</option>
+                                        <option value="asd">assdsd</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -283,8 +285,10 @@ session_start();
                             </div>
                             <hr>
                             <div class="text-center">
-                                <img class="c-img" title="Click to Generate worksheet" src="images/oldprint.jpg" alt="">
+                                <img class="c-img" type=" submit" id="worksheet-cimg" title="Click to Generate worksheet" src="images/oldprint.jpg" alt="">
                             </div>
+                            <input class="d-none" type="submit" id="worksheet-submit" >
+                        </form>
                         </div>
                         <!-- Generate -->
                         <div class="container-fluid pan " style="padding:10px 7%;" id="panel-generate">
