@@ -126,7 +126,7 @@
                     $sql = "SELECT * FROM ".$subid." ORDER BY marks,unit ;";       
                         //echo $sql;
                             $result = $conn->query($sql);
-                            if ($result->num_rows > 0) 
+                            if ($result ==true && $result->num_rows > 0) 
                             {
                                 $i=1;
                                 while ($row = $result->fetch_assoc()) {
