@@ -13,7 +13,7 @@ else
 {   
     
       //end function
-    $sql = "SELECT * FROM ".$subid." ORDER BY marks,unit ;";       
+    $sql = "SELECT * FROM `".$subid."` ORDER BY marks,unit ;";       
         //echo $sql;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) 

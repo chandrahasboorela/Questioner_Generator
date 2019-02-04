@@ -274,7 +274,7 @@ session_start();
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <select name="subid" id="" class="form-control">
-                                        <option value="testsubject">testsubject</option>
+                                        <option value="1">testsubject</option>
                                         <option value="asd">assdsd</option>
                                     </select>
                                 </div>
@@ -292,10 +292,12 @@ session_start();
                         </div>
                         <!-- Generate -->
                         <div class="container-fluid pan " style="padding:10px 7%;" id="panel-generate">
+                        <form action="generate.php" id="generate-form" method="POST" target="_blank" >
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <select name="" id="" class="form-control">
+                                    <select name="subid" id="" class="form-control">
                                         <option value="">sub</option>
+                                        <option value="1">testsubject</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -305,8 +307,10 @@ session_start();
                             </div>
                             <hr>
                             <div class="text-center">
-                                <img class="c-img" title="Click to Generate paper" src="images/oldprint1.jpg" alt="">
+                                <img class="c-img" id='generate-cimg' title="Click to Generate paper" src="images/oldprint1.jpg" alt="">
                             </div>
+                            <input class="d-none" type="submit" id="generate-submit" >
+                        </form>
                         </div>
                         <div style="height:20px;"></div>
                     </div>

@@ -1,40 +1,24 @@
 <?php
-    include("dbconfig.php");
-    $id = isset($_POST['username']) ?  $_POST['username']  : '';
-    $pwd = isset($_POST['password']) ?  $_POST['password']  : '';
-    
-    $conn = new mysqli($servername, $username, $password,$dbname);
-    if($id!=""&&$pwd!=""){
-        if($conn->connect_error){
-            die("Connection Failed  ".$conn->connect_error);
-        }
-        else
-        {    
-            $stmt = $conn->prepare("SELECT sno,id,name from logindetails where pwd = ? and id = ?  and Status = 1;");
-            $stmt->bind_param("ss", $pwd,$id);
-            $stmt->execute();
-        //        print_r($stmt);
-            $stmt->store_result();
-        //        echo $stmt->num_rows;
-                if($stmt->num_rows == 1){
-                    $stmt->bind_result($sno,$id,$name);
-                    $stmt->fetch();
-                    
-                    $_SESSION["key"]="9FOj92VfeSbTQ54M";
-                    $_SESSION["id"]=$id;
-                    $_SESSION["sno"]=$sno;
-                    $_SESSION["name"]=$name;
-                    //echo $_SESSION["name"];
-                    $_SESSION["lock"]=0;
-                    header('Location:/panel.html');
-                }
-                else{
-                    header('Location:index.html');
-                }
-                $_SESSION["lock"]=1;
-            $stmt->close();
-        }
-    }   
-        else
-            header("Location:index.html");
+include("dbconfig.php")// database connectivity 
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+$id=isset($_POST['id'])?strval($_POST['id']);"";
+$name=isset($_POST['name'])?strval($_POST['name']);"";
+$pwd=isset($_POST['pwd'])?strval($_POST['pwd']);"";
+$email=isset($_POST['email'])?strval($_POST['email']);"";
+
+//SQL QUERY : INSERT INTO logindetails VALUES('','rag','raghu','pwd','a@gmaiol.com',1);
+
+                $sql1 = "INSERT INTO logindetails VALUES('',?,?,?,?,1)";
+                $stmt1 = $conn->prepare($sql1);
+                $stmt1->bind_param("ssss",$id,$name,$pwd,$email);
+                $result = $stmt1->execute();
+if ($result === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
 ?>

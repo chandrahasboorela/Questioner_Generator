@@ -24,8 +24,7 @@
     @page :first {
          margin-top: 0.3cm    /* Top margin on first page 10cm */
       }
-    @media print
-    {    
+    @media print{    
         .tooltiptext{
             display:none;
         }
@@ -109,7 +108,7 @@
     <title>Worksheet</title>
 </head>
 <body>
-    <h1><b><?php echo $subid; ?></b> - Worksheet<button class="no-print print-btn" onclick="window.print();">Print</button></h1>
+    <h1><b><?php echo $subid; ?></b> - Worksheet<button class="no-print print-btn" onclick="print_close();">Print</button></h1>
     <hr>
     
     <div>
@@ -123,7 +122,7 @@
                 {   
                     
                       //end function
-                    $sql = "SELECT * FROM ".$subid." ORDER BY marks,unit ;";       
+                    $sql = "SELECT * FROM `".$subid."` ORDER BY marks,unit ;";       
                         //echo $sql;
                             $result = $conn->query($sql);
                             if ($result ==true && $result->num_rows > 0) 
@@ -150,6 +149,9 @@ EOL;
                                 // print_r($out);
                                  //echo $out[0]['time'];
                             }
+                            else{
+                                header("Location:error.html");
+                            }
                             $conn->close();     
                 }
             ?>
@@ -165,5 +167,13 @@ EOL;
         </table>
        <center>-------------xxx-------------</center>
     </div>
+    <script>
+            function print_close(){
+                window.print();
+                if (confirm("Close Window?")) {
+                    close();
+                  }
+            }
+            </script>
 </body>
 </html>

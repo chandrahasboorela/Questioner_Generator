@@ -35,6 +35,11 @@ function setDefault(){
 $("#worksheet-cimg").click(function () {    
     $("#worksheet-submit").click();
 });
+//generate{}
+$("#generate-cimg").click(function () {    
+    $("#generate-submit").click();
+});
+
 // Create recored : 2 steps:  inserts question to db, retrives its sno uploads image with that name  
 function createRecord(){
     var question = $("#question").val();
