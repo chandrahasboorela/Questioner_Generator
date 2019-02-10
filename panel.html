@@ -9,7 +9,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#049dbf">
+    <meta name="theme-color" content="#2c445c">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="shortcut icon" href="images/icon.png">
     <link rel="stylesheet" href="css/panel.css">
@@ -42,11 +42,11 @@ session_start();
 
 <body>
     <div class="container-fluid">
-        <div class="row pl-4 pr-4" style="    background-color: #0074ecb8;">
+        <div class="row pl-4 pr-4" style="    background-color: #2c445c;">
             <div class="col-8 mt-2   ">
-
+                <img class="mb-1" style="max-height: 40px;" src="images/sriit.png" alt="SRIIT">
             </div>
-            <div class="col-2 p-1 mt-1 text-right ">
+            <div class="col-2 p-1 mt-1 text-right light" style="color:white;">
                 <p class="user">Hi!
                     <?php echo $_SESSION['name'];?>
                 </p>
@@ -79,24 +79,18 @@ session_start();
                 <div class="col-12" style="background-color:#EEEAEA; padding:0px;">
                     <div id="Panel" style="margin:0px;border:4px solid #67FE62;">
                         <!-- insert  -->
-                        <div class="container-fluid pan done" style="padding:10px 7%;" id="panel-insert">
-                            <div class="alert alert-danger" id="errorDropdown" style="border-radius:0px; display:none;"
-                                role="alert">
-                                Error
-                            </div>
+                        <div class="container-fluid pan done" style="padding:10px 7%;min-height: 475px;" id="panel-insert">
                             <div class="row" style="height:18px;"></div>
                             <div class="row">
                                 <div class="col-lg-3 col-md-5 col-sm-6 text-center" style="background-color:black; color:white;">
-                                    <h4>Question</h4>
+                                    <h4><span class="qno">&nbsp;&nbsp;</span>Question</h4>
                                 </div>
                             </div>
                             <div class="row">
-
                                 <textarea class="col-12" class="row" id="question" rows="6" maxlength="700"></textarea>
                             </div>
                             <div class="row" style="height:10px;"></div>
                             <div class="row">
-
                                 <div class="col-3 text-left" style="padding-left:0px;">
                                     <h5>Comment</h5>
                                 </div>
@@ -107,8 +101,9 @@ session_start();
                                         maxlength="200"></textarea>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12 row">
-                                    <input class="btn btn-primary col-12" style="font-size:initial; cursor:pointer; " id="file"
+                                    <input class="btn btn-primary col-10" style="font-size:initial; cursor:pointer; " id="file"
                                         type="file" name='file'>
+                                    <i class="btn btn-outline-danger fas fa-trash rm-img" title='Delete linked image?' style="font-size:24px;padding-top: 12px;"></i>
                                 </div>
                             </div>
                             <div class="row" style="height:20px;"></div>
@@ -119,7 +114,7 @@ session_start();
                             <div class="row">
                                 <div class="col-3 dropDown" data-toggle="tooltip" data-placement="top" title="Subject"><select
                                         class="form-control " id="subject">
-                                        <option value="testsubject">testsubject</option>
+                                        <option value="1">testsubject</option>
                                         <option value="CPP">CPP</option>
                                         <option value="CSS">CSS</option>
                                         <option value="SDF">SDF</option>
@@ -140,7 +135,8 @@ session_start();
                                         <option value="10">10 Marks</option>
                                     </select></div>
                                 <div class="col-3">
-                                    <button class="btn btn-success text-center col-12" style="cursor:pointer" id="submit"><b>Add</b></button>
+                                    <button class="btn btn-success text-center col-12" style="cursor:pointer;" id="submit"><b>Add</b></button>
+                                    <button class="btn btn-warning text-center col-12" style="cursor:pointer; display: none;" id="edit-submit"><b>Update</b></button>
                                 </div>
                             </div>
                             <div style="height:20px;"></div>
@@ -159,39 +155,44 @@ session_start();
                             </div>
                         </div>
                         <!-- delete panel -->
-                        <div class="container-fluid pan d-" style="padding:10px 7%;" id="panel-delete">
+                        <div class="container-fluid pan d-" style="padding:10px 7%;min-height: 475px;" id="panel-delete">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <select name="" id="" class="form-control">
-                                        <option value="">asd</option>
+                                    <select name="" id="delete-select" class="form-control">
+                                        <option value="1">testsubject</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <button class="btn btn-info w-full">view</button>
+                                    <button class="btn btn-danger w-full" id='delete-view'>view</button>
+                                </div>
+                                <div class="col col-md-12 col-sm-12 mt-2">
+                                    <div class="input-group">
+                                        <input type="search" class="col-12 form-control clearable" id='delete-searchbar' placeholder="Search for a Question">
+                                    </div>
                                 </div>
                                 <hr class="col-12">
                                 <!-- heading  -->
                                 <div class="col-12 mt-2">
                                     <div class="row question">
-                                        <div class="col-lg-3 col-md-2 col-sm-2 d-flex border-right text-center">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 d-flex border-right text-center">
                                             <p class="align-self-center">
-                                                Sno
+                                               <b> Sno Unit Mark</b>
                                             </p>
                                         </div>
-                                        <div class="col-lg-7 col-md-8 col-sm-12 border-right text-center">
-                                            <p>Question
+                                        <div class="col-lg-8 col-md-8 col-sm-12 border-right text-center">
+                                            <p><b>Question</b>
                                             </p>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-sm-2  text-center">
                                             <p class="align-self-center ">
-                                                Action [Delete]
+                                                <b>Action [Delete]</b>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- list begins  -->
-                                <div class="col-12 mt-2">
-                                    <div class="row question">
+                                <div class="col-12 mt-2" id='delete-que'>
+                                    <!-- <div class="row question">
                                         <div class="col-lg-3 col-md-2 col-sm-2 d-flex border-right">
                                             <div class="align-self-center">
                                                 1
@@ -209,44 +210,49 @@ session_start();
                                             <i class="btn btn-outline-danger fas fa-trash w-full align-self-center "
                                                 style="font-size: x-large; padding: 5%;"></i>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                         <!-- edit -->
-                        <div class="container-fluid pan d-no" style="padding:10px 7%;" id="panel-edit">
+                        <div class="container-fluid pan d-no" style="padding:10px 7%;min-height: 475px;" id="panel-edit">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <select name="" id="" class="form-control">
-                                        <option value="">asd</option>
+                                    <select name="" id="edit-select" class="form-control">
+                                        <option value="1">asd</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <button class="btn btn-info w-full">view</button>
+                                    <button class="btn btn-info w-full" id='edit-view'>view</button>
+                                </div>
+                                <div class="col col-md-12 col-sm-12 mt-2">
+                                    <div class="input-group">
+                                        <input type="search" class="col-12 form-control clearable" id='edit-searchbar' placeholder="Search for a Question">
+                                    </div>
                                 </div>
                                 <hr class="col-12">
                                 <!-- heading  -->
                                 <div class="col-12 mt-2">
                                     <div class="row question">
-                                        <div class="col-lg-3 col-md-2 col-sm-2 d-flex border-right text-center">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 d-flex border-right text-center">
                                             <p class="align-self-center">
-                                                Sno
+                                                <b>Sno Unit Mark</b>
                                             </p>
                                         </div>
-                                        <div class="col-lg-7 col-md-8 col-sm-12 border-right text-center">
-                                            <p>Question
+                                        <div class="col-lg-8 col-md-8 col-sm-12 border-right text-center">
+                                            <p><b>Question</b>
                                             </p>
                                         </div>
                                         <div class="col-lg-2 col-md-2 col-sm-2  text-center">
                                             <p class="align-self-center ">
-                                                Action [Edit]
+                                                <b>Action [Edit]</b>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- list begins  -->
-                                <div class="col-12 mt-2">
-                                    <div class="row question">
+                                <div class="col-12 mt-2" id="edit-que">
+                                    <!-- <div class="row question">
                                         <div class="col-lg-3 col-md-2 col-sm-2 d-flex border-right">
                                             <div class="align-self-center">
                                                 1
@@ -264,7 +270,8 @@ session_start();
                                             <i class="btn btn-outline-warning fas fa-pen-alt w-full align-self-center "
                                                 style="font-size: x-large; padding: 5%;"></i>
                                         </div>
-                                    </div>
+                                    </div> -->
+
                                 </div>
                             </div>
                         </div>
@@ -315,19 +322,8 @@ session_start();
                         <div style="height:20px;"></div>
                     </div>
                     <div class="row" style="background-color:#343434;padding:6px 25px;margin:auto;">
-                        <div class="col col-md-10 col-sm-12">
-                            <div class="input-group">
-                                <input type="text" class="col-12 form-control" placeholder="Search for...">
-                                <span class="input-group-btn col-3" style="padding-left:0px;">
-                                    <button class="btn btn-secondary col-12" type="button"><span class="glyphicon glyphicon-search"></span>
-                                        Search </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col col-md-2 col-sm-12">
-                            <span class="btn btn-outline-info col-12" style="cursor:pointer; font-size:14px;">View all
-                                Questions</span>
-                        </div>
+                        <div class="alert alert-warning w-full" role="alert">
+                           <b>Info : </b><span class="alert-infoo"></span>                          </div>
                     </div>
                 </div>
             </div>
@@ -335,8 +331,6 @@ session_start();
         <div id="end"></div>
 
     </div>
-    <button id="but_upload">upload</button>
-
     <script src="jquery/panel.js"></script>
 </body>
 

@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="theme-color" content="#049dbf">
+    <meta name="theme-color" content="#2c445c">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="shortcut icon" href="images/icon.png">
     <style>
@@ -108,7 +108,29 @@
     <title>Worksheet</title>
 </head>
 <body>
-    <h1><b><?php echo $subid; ?></b> - Worksheet<button class="no-print print-btn" onclick="print_close();">Print</button></h1>
+    <?php
+        if($conn->connect_error){
+            die("Connection Failed  ".$conn->connect_error);
+            $json = array("status" => 0, "msg" => "Connection Error!!");
+        }
+        else
+        {   
+            //get subject details 
+            $sql = "SELECT * FROM subjectlist WHERE subid = '".$subid."' AND status = 1; ";       
+                        //echo $sql;
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) 
+                            {
+                                $row = $result->fetch_assoc();
+                                    $subname = $row['name'];
+                                    $subcode = $row['subcode'];                                        
+                            }
+                            else{
+                                header("Location:error.html");
+                            }
+                        }
+    ?>
+    <h1><b><?php echo $subname; ?></b> - Worksheet<button class="no-print print-btn" onclick="print_close();">Print</button></h1>
     <hr>
     
     <div>
@@ -134,16 +156,28 @@
                                         $comment = $row['comment'];
                                         $unit = $row['unit'];
                                         $marks = $row['marks'];
+                                        $filename = "questionImages/".$subid."/".$sno.".jpg";
                                         echo <<<EOL
                                                 <tr >
-                                                    <td valign="top" class="sno" title='$sno'>$i</td>
-                                                    <td title='$comment' class="tooltip">
+                                                    <td valign="top" class="sno tooltip" title='$sno'>$i
+                                                    <span class="tooltiptext">$sno</span></td>
+                                                        
+                                                    <td title='$comment' class="tooltip" style="width:80%">
                                                             <span class="tooltiptext">$comment</span>
                                                             <p>$question</p>
-                                                    </td>
-                                                    <td valign="top" class="sno" title='$unit'>$marks M</td>
-                                                </tr>
 EOL;
+                                         
+                                                            if(file_exists($filename)){
+                                                                echo <<<EOL
+                                                                   <img src='$filename' alt="image missing" style="max-width:3in; max-height:2in; margin-bottom:15px;">              
+EOL;
+                                                            }              
+                                        echo '                                                        
+                                                    </td>
+                                                    <td valign="top" class="sno tooltip text-right" title='.$unit.'>'.$marks.' M
+                                                    <span class="tooltiptext">Unit - $unit</span></td>
+                                                    
+                                                </tr>';
                                     $i++;
                                     }
                                 // print_r($out);

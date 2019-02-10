@@ -1,6 +1,7 @@
 <?php
     session_start();
     include("dbconfig.php");
+    
     $id = isset($_POST['username']) ?  $_POST['username']  : '';
     $pwd = isset($_POST['password']) ?  $_POST['password']  : '';
     //$_SESSION["failed"]=1;

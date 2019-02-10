@@ -193,6 +193,7 @@ for($i = 0;$i< 5 ;$i++){
     $comment = $out[$number]['comment'];
     $unit = $out[$number]['unit'];
     $marks = $out[$number]['marks'];
+    $filename = "questionImages/".$subid."/".$sno.".jpg";
    
                                             echo <<<EOL
                                             <tr >   
@@ -200,10 +201,22 @@ for($i = 0;$i< 5 ;$i++){
                                                     <td title='$comment' class="tooltip">
                                                             <span class="tooltiptext">$comment</span>
                                                             <p>$sqno)&nbsp;&nbsp;&nbsp;&nbsp;$question</p>
+                                                           
+EOL;
+                                             
+if(file_exists($filename)){
+    echo <<<EOL
+       <img src='$filename' alt="image missing" style="max-width:4in; max-height:2.5in; margin-bottom:15px;">              
+EOL;
+}              
+                                                   echo <<<EOL
                                                     </td>
                                                     <td valign="top" align='left' class="sno" title='$unit'>[$marks] </td>
                                                 </tr>
 EOL;
+
+                
+
 $sqno++;
                                         }
                                         for($i = 0;$i< 5 ;$i++){
@@ -213,6 +226,7 @@ $sqno++;
                                             $comment = $out[$number]['comment'];
                                             $unit = $out[$number]['unit'];
                                             $marks = $out[$number]['marks'];
+                                            $filename = "questionImages/".$subid."/".$sno.".jpg";
                                             $sqno++;
                                                                                     echo <<<EOL
                                                                                     <tr >   
@@ -220,6 +234,13 @@ $sqno++;
                                                                                             <td title='$comment' class="tooltip">
                                                                                                     <span class="tooltiptext">$comment</span>
                                                                                                     <p>$sqno)&nbsp;&nbsp;&nbsp;&nbsp;$question</p>
+EOL;
+if(file_exists($filename)){
+    echo <<<EOL
+       <img src='$filename' alt="image missing" style="max-width:4in; max-height:2.5in; margin-bottom:15px;">              
+EOL;
+}              
+                                                   echo <<<EOL
                                                                                             </td>
                                                                                             <td valign="top" align='left' class="sno" title='$unit'>[$marks] </td>
                                                                                         </tr>
@@ -235,6 +256,7 @@ EOL;
                                                 $comment = $out[$number]['comment'];
                                                 $unit = $out[$number]['unit'];
                                                 $marks = $out[$number]['marks'];
+                                                $filename = "questionImages/".$subid."/".$sno.".jpg";
                                                 $qno++;
                                                                                         echo <<<EOL
                                                                                         <tr >   
@@ -242,7 +264,15 @@ EOL;
                                                                                                 <td title='$comment' class="tooltip">
                                                                                                         <span class="tooltiptext">$comment</span>
                                                                                                         <p style="margin-left:15px;">$question</p>
-                                                                                                </td>
+EOL;
+                                             
+                                                                                                        if(file_exists($filename)){
+                                                                                                            echo <<<EOL
+                                                                                                               <img src='$filename' alt="image missing" style="max-width:4in; max-height:2.5in; margin-bottom:15px;">              
+EOL;
+                                                                                                        }              
+                                                                                                    echo <<<EOL
+                                                                                                        </td>
                                                                                                 <td valign="top" align='left' class="sno" title='$unit'>[$marks] </td>
                                                                                             </tr>
 EOL;

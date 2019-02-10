@@ -1,12 +1,22 @@
 <html>
 <?php
     session_start();
+    if(isset($_SESSION['errormsg'])){
+        $msg = $_SESSION['errormsg'];
+        echo <<<EOL
+        <script>
+            alert("$msg");
+        </script>
+EOL;
+
+    }
+    unset($_SESSION['errormsg']);
 ?>
 <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="theme-color" content="#049dbf">
+        <meta name="theme-color" content="#2c445c">
         <meta name="mobile-web-app-capable" content="yes">
         <link rel="shortcut icon" href="images/icon.png">
         <link rel="stylesheet" href="css/panel.css">

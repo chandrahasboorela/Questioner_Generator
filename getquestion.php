@@ -3,6 +3,7 @@ include("dbconfig.php");
 session_start();
 $_SERVER["REQUEST_METHOD"] == "POST";
 $subid= isset($_POST['subid'])?$_POST['subid']:'';
+$qno= isset($_POST['qno'])?$_POST['qno']:'';
 $flag=0;
 if(isset($_SESSION['key']) && $_SESSION['key'] =="9FOj92VfeSbTQ54M" ){
 if($conn->connect_error){
@@ -13,7 +14,7 @@ else
 {   
     
       //end function
-    $sql = "SELECT * FROM `".$subid."` ORDER BY marks,unit ;";       
+    $sql = "SELECT * FROM `".$subid."`WHERE sno = ".$qno." ;";       
         //echo $sql;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) 

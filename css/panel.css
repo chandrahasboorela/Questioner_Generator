@@ -4,20 +4,47 @@
     border-radius: 5px;
     padding: 10px;
 }
-.c-img{
-    width: 400px;
-    border-radius: 50%;
-    border: 2px solid black;
-}
-.c-img:hover{
-    width: 420px;
-    border-radius: 50%;
-    cursor: pointer;
-    margin:-10px;
-}
+
 .pan{
     display: none;
 }
 #panel-insert{
     display: block;
+}
+.question:hover{
+    background-color: rgb(58, 58, 58);
+    color: white;
+}
+.clearable{
+    background: #fff url(data:image/gif;base64,R0lGODlhBwAHAIAAAP///5KSkiH5BAAAAAAALAAAAAAHAAcAAAIMTICmsGrIXnLxuDMLADs=) no-repeat right -10px center;
+    border: 1px solid #999;
+    padding: 3px 18px 3px 4px; /* Use the same right padding (18) in jQ! */
+    border-radius: 3px;
+    transition: background 0.4s;
+  }
+  .clearable.x  { background-position: right 5px center; }
+  .clearable.onX{ cursor: pointer; }
+  .clearable::-ms-clear {display: none; width:0; height:0;}
+@media screen and (max-width: 767px) {
+    .c-img{
+        width: 90%;
+        border-radius: 50%;
+        border: 2px solid black;
+    }
+    .c-img:hover{
+       
+    }
+}
+@media screen and (min-width:768px){
+    .c-img{
+        width: 400px;
+        border-radius: 50%;
+        border: 2px solid black;
+    }
+    .c-img:hover{
+        width: 420px;
+        border-radius: 50%;
+        cursor: pointer;
+        margin:-10px;
+    }
 }
