@@ -1,5 +1,29 @@
 $(function() {
-
+//fetch subjects list //#endregion
+function setSubjectsList(){
+    $.ajax({
+        type: "POST",
+        url: "getsubjectslist.php",
+        success: function (e) {
+            //console.log(e);
+            if(e.status==1){
+                var html = '';
+                e.data.forEach(element => {
+                html+="<option value='"+element.subid+"' >"+element.name+"</option>";
+                });
+                $(".subls").html(html);
+                //alertMsg('Fetched Subjects list.');
+            }else{
+                alertMsg('Error! Fetching data.');
+            }
+            
+        },
+        error:()=>{
+            alertMsg('AJAX Error! Fetching data.');
+        }
+    });
+}
+setSubjectsList();
 //pannel tabs insert, delete, edit 
 function noTabs(){
     $(".nav-item").removeClass('active');
@@ -10,6 +34,7 @@ $(".nav-item").click(function(){
     var property = "5px solid "+$(this).css("background-color");
     //console.log(property);
     $("#Panel").css("border",property);
+    setSubjectsList();
 });    
 //clear panel contents 
 function clearPanel(){
@@ -35,6 +60,7 @@ function setDefault(){
     $("#submit").css({'display':'block'});
     $("#edit-submit").css({'display':'none'});
 }
+
 //worksheet{}
 $("#worksheet-cimg").click(function () {    
     $("#worksheet-submit").click();

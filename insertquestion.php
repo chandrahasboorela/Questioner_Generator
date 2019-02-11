@@ -39,7 +39,7 @@ else
                     if($stmt1->num_rows >= 1){
                         $stmt1->bind_result($sno,$subid);
                         $stmt1->fetch();
-                        $out = array('sno'=>$sno,'subid'=>$subjectid1);
+                        $out = array('sno'=>$sno,'subid'=>$subjectid);
                         $flag++;
                     }
                 }
@@ -51,7 +51,7 @@ else
                 //print_r($conn->error_list);
                 $result = $stmt->execute();
                 if ($result){
-                    $out = array('sno'=>$sno,'subid'=>$subjectid1);
+                    $out = array('sno'=>$sno,'subid'=>$subjectid);
                     $flag++;
                 } 
             }
