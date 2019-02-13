@@ -2,38 +2,23 @@
     include("dbconfig.php");
     session_start();
     $_SERVER["REQUEST_METHOD"] == "POST";
+    $subid= isset($_POST['subid'])?$_POST['subid']:'';
     if(!(isset($_SESSION['key']) && $_SESSION['key'] =="9FOj92VfeSbTQ54M")){
             header("Location:error.html");
     }else{
         if(!isset($_POST['subid']))
             header("Location:error.html");
     }
-    $subid= isset($_POST['subid'])?$_POST['subid']:'';
+   
 ?>
-<?php
-
-                if($conn->connect_error){
-                    die("Connection Failed  ".$conn->connect_error);
-                    $json = array("status" => 0, "msg" => "Connection Error!!");
-                }
-                else
-                {   
-                    //get subject details 
-                    $sql = "SELECT * FROM subjectlist WHERE subid = '".$subid."' AND status = 1; ";       
-                                //echo $sql;
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) 
-                                    {
-                                        $row = $result->fetch_assoc();
-                                            $subname = $row['name'];
-                                            $subcode = $row['subcode'];                                        
-                                    }
-                                    else{
-                                        header("Location:error.html");
-                                    }
-                                    $subname = strtoupper($subname);
-                                    echo <<<EOL
-                                    <html>
+<html>
+                                    <head>
+                                    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="theme-color" content="#2c445c">
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" href="../images/icon.png">
                                     <style>
                                     @page { margin: 0.5cm }
                                     @page :first {
@@ -105,6 +90,30 @@
                                             width:100%;
                                         }
                                     </style>
+                                    </head>
+<?php
+
+                if($conn->connect_error){
+                    die("Connection Failed  ".$conn->connect_error);
+                    $json = array("status" => 0, "msg" => "Connection Error!!");
+                }
+                else
+                {   
+                    //get subject details 
+                    $sql = "SELECT * FROM subjectlist WHERE subid = '".$subid."' AND status = 1; ";       
+                                //echo $sql;
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) 
+                                    {
+                                        $row = $result->fetch_assoc();
+                                            $subname = $row['name'];
+                                            $subcode = $row['subcode'];                                        
+                                    }
+                                    else{
+                                        header("Location:error.html");
+                                    }
+                                    $subname = strtoupper($subname);
+                                    echo <<<EOL
                                     
                                     <body>
                                     <div class="no-print" style="background-color:wheat;padding:15px;"><h1 ><button class='print-btn' onclick="print_close();">Print</button></h1>
@@ -141,6 +150,9 @@ EOL;
                                 $marks3 = array();   
                                 $marks10 = array();   
                                 while ($row = $result->fetch_assoc()) {
+                                    if($row['total']<1 || $result->num_rows != 15){
+                                       return 0;
+                                    }
                                         $end = $end+$row['total'];
                                         //echo "<br>".$begin.' - '; //testing
                                         //echo intval($end)-1;      //testing
@@ -186,6 +198,11 @@ EOL;
                                         $sqno = 'a';
                                         $qno = 1;
                                         echo '<tr><td align="right">1.</td><td></td><td></td></tr>';
+                                        if(count($out)<0){
+                                            return;
+                                        }
+                                            
+                    
 for($i = 0;$i< 5 ;$i++){
     $number = $marks2[$i][$i+1];
     $sno = $out[$number]['sno'];

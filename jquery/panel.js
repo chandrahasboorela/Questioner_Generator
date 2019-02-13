@@ -289,8 +289,9 @@ $("#edit-submit").click(function (ee) {
 //delete
 $("#delete-view").click(function (e) { 
     e.preventDefault();
-    var sid = $("#delete-select").val();
-    getQuestions('delete-que',sid,-1);
+    var ssid = $("#delete-selects ").val();
+    //console.log(ssid);
+    getQuestions('delete-que',ssid,-1);
 });
 //edit 
 $("#edit-view").click(function (e) { 

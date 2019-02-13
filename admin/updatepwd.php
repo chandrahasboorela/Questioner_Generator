@@ -1,5 +1,5 @@
 <?php
-include("dbconfig.php");
+include("../dbconfig.php");
 session_start();
 $_SERVER["REQUEST_METHOD"] == "POST";
 
@@ -16,7 +16,7 @@ if($conn->connect_error){
 else
 {   //trim($question);
     if($sno!= '' &&  $newpwd!= '' && $renewpwd!= '' && ($newpwd==$renewpwd)){
-                $sql= "UPDATE  logindetails SET pwd =? WHERE sno=?";
+                $sql= "UPDATE  adminlogindetails SET pwd =? WHERE sno=?";
                 //echo $sql;
                 //$sql= "UPDATE  logindetails SET pwd ="3363" WHERE sno='1';";
                 $newpwd = hash('sha384',$newpwd);
@@ -27,7 +27,7 @@ else
                 $result = $stmt->execute();
                 if ($result) 
                 {
-                    $stmt0 = $conn->prepare("DELETE FROM `resetpwd` WHERE tid = ?");
+                    $stmt0 = $conn->prepare("DELETE FROM `adminresetpwd` WHERE tid = ?");
                     $stmt0->bind_param("d",$sno);
                     $stmt0->execute();
                     $_SESSION['updatedpwd']=true;
@@ -43,6 +43,6 @@ else
 }
 }
 else{
-    header("Location:error.html");
+    header("Location:../error.html");
 }
 ?>

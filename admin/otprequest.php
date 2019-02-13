@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("dbconfig.php");
+    include("../dbconfig.php");
     $id = isset($_POST['id']) ?  $_POST['id']  : '';
     $email = isset($_POST['email']) ?  $_POST['email']  : '';
     //$_SESSION["failed"]=1;
@@ -11,7 +11,7 @@
         else
         {   
             
-            $stmt = $conn->prepare("SELECT sno,name from logindetails where email = ? and id = ?  and Status = 1;");
+            $stmt = $conn->prepare("SELECT sno,name from adminlogindetails where email = ? and id = ?  and Status = 1;");
             $stmt->bind_param("ss", $email,$id);
             $stmt->execute();
         //        print_r($stmt);
@@ -21,22 +21,22 @@
                     $stmt->bind_result($sno,$name);
                     $stmt->fetch();
 
-                    $stmt0 = $conn->prepare("DELETE FROM `resetpwd` WHERE tid = ?");
+                    $stmt0 = $conn->prepare("DELETE FROM `adminresetpwd` WHERE tid = ?");
                     $stmt0->bind_param("d",$sno);
                     $stmt0->execute();
                     
                     $sdate = date('Y-m-d H:i:s');
                     //echo $sdate;
-                    $otp='';
+                    $otp=0;
                     for($i=0;$i<6;$i++){
-                        $otp =$otp.(String)rand(0,9);
+                        $otp =$otp*10+ rand(0,9);
                     }
-                    $stmt1 = $conn->prepare("INSERT INTO `resetpwd` VALUES('',?,?,?)");
+                    $stmt1 = $conn->prepare("INSERT INTO `adminresetpwd` VALUES('',?,?,?)");
                     $stmt1->bind_param("dss",$sno,$otp,$sdate);
                     $stmt1->execute();
 
                     $to = $email;
-                    $subject = "Reset Password - Question Paper Generator";
+                    $subject = "Reset Admin Password - Question Paper Generator";
 
                     $message = <<<EOL
                     <html>

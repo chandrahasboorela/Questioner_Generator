@@ -1,6 +1,6 @@
 <html>
 <?php
-    include("dbconfig.php");
+    include("../dbconfig.php");
     session_start();
     $_SERVER["REQUEST_METHOD"] == "POST";
     $username= isset($_POST['username'])?$_POST['username']:'';
@@ -17,7 +17,7 @@
         else
         {   
             
-            $stmt = $conn->prepare("SELECT sno,name from logindetails where email = ? and id = ?  and Status = 1;");
+            $stmt = $conn->prepare("SELECT sno,name from adminlogindetails where email = ? and id = ?  and Status = 1;");
             $stmt->bind_param("ss", $email,$username);
             $stmt->execute();
         //        print_r($stmt);
@@ -27,7 +27,7 @@
                     $stmt->bind_result($sno,$name);
                     $stmt->fetch();
                     // /echo $sno;
-                    $stmt0 = $conn->prepare("SELECT otp FROM `resetpwd` WHERE tid = ?");
+                    $stmt0 = $conn->prepare("SELECT otp FROM `adminresetpwd` WHERE tid = ?");
                     $stmt0->bind_param("d",$sno);
                     $stmt0->execute();
                     $stmt0->store_result();
@@ -41,9 +41,9 @@
                         $stmt0->fetch();
                         //echo "otp ".$otp.'  dotp'.$dotp; 
                         if($otp!=$dotp){
-                            $_SESSION['errormsg']='Invalid OTP';
-                            header("Location:forgotpwd.php");
-                                //echo "failed dotp doesent matnc";
+                        $_SESSION['errormsg']='Invalid OTP';
+                        header("Location:forgotpwd.php");
+                            //echo "failed dotp doesent matnc";
                         }else{
                             $_SESSION['pwdkey']='S5S1FDDF91D3FD894D3F';
                         }
@@ -59,7 +59,7 @@
         }
     }   
         else{
-            header("Location:error.html");
+            header("Location:../error.html");
         }
        
 ?>
@@ -69,8 +69,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="theme-color" content="##2c445c">
         <meta name="mobile-web-app-capable" content="yes">
-        <link rel="shortcut icon" href="images/icon.png">
-        <link rel="stylesheet" href="css/panel.css">
+        <link rel="shortcut icon" href="../images/icon.png">
+        <link rel="stylesheet" href="../css/panel.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -87,12 +87,12 @@
         crossorigin="anonymous">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.js"></script>
     <title>Question Paper Generator</title>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
 </head>
 
 <body>
     <div class="container-fluid row login-box">
-        <img src="images/avatar.png" class="avatar">
+        <img src="../images/avatar.png" class="avatar">
         <h1>Reset password</h1>
         <pre style='color:orange;font-size:16px;' >Username: <?php echo $name;?></pre >
         <form id='target' class="col-12" action="updatepwd.php" method="POST" >

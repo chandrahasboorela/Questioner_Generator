@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("dbconfig.php");
+    include("../dbconfig.php");
     
     $id = isset($_POST['username']) ?  $_POST['username']  : '';
     $pwd = isset($_POST['password']) ?  $_POST['password']  : '';
@@ -12,7 +12,7 @@
         else
         {    
             $pwd = hash('sha384',$pwd);
-            $stmt = $conn->prepare("SELECT sno,id,name from logindetails where pwd = ? and id = ?  and Status = 1;");
+            $stmt = $conn->prepare("SELECT sno,id,name from adminlogindetails where pwd = ? and id = ?  and Status = 1;");
             $stmt->bind_param("ss", $pwd,$id);
             $stmt->execute();
         //        print_r($stmt);
@@ -30,11 +30,11 @@
                     $_SESSION["failed"]=0;
                     $sdate = date('Y-m-d H:i:s');
                     $ip = $_SERVER['REMOTE_ADDR'];
-                    $stmt = $conn->prepare("INSERT INTO log VALUES('',?,?,?)");
+                    $stmt = $conn->prepare("INSERT INTO adminlog VALUES('',?,?,?)");
                     $stmt->bind_param("dss",$sno,$ip,$sdate);
                     $stmt->execute();
 
-                    header('Location:panel.php');
+                    header('Location:adminpanel.php');
                 }
                 else{
                     $_SESSION["failed"]=1;

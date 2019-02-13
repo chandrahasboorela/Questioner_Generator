@@ -175,7 +175,7 @@ EOL;
                                         echo '                                                        
                                                     </td>
                                                     <td valign="top" class="sno tooltip text-right" title='.$unit.'>'.$marks.' M
-                                                    <span class="tooltiptext">Unit - $unit</span></td>
+                                                    <span class="tooltiptext">Unit - '.$unit.'</span></td>
                                                     
                                                 </tr>';
                                     $i++;
