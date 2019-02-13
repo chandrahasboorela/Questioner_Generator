@@ -1,8 +1,16 @@
-#add-teacher>.row,#add-subject>.row,#add-teacher-sub>.row{
+#add-teacher>.row,#add-subject>.row,#add-teacher-sub>.row,#manage-teacher>.row{
     margin-bottom:10px;
 }
 .tab{
     padding: 10px;
-    margin-right:26px;
+    margin-right:6px;
 }
+.l-row{
+    transition: all 0.04s ease-out;
+}
+.l-row:hover{
+    outline: 2px solid black;
+    outline-offset: -2px;
+}
+
 

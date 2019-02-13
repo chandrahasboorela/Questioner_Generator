@@ -20,7 +20,7 @@ else
         break;
         case -1:    $sql = "SELECT * FROM `subjectlist` WHERE subid IN (SELECT s.subid FROM teacher_subject s WHERE s.tid=".$tid.")";
         break;
-        case 1:    $sql = "SELECT * FROM `subjectlist` WHERE subid IN (SELECT s.subid FROM teacher_subject s WHERE s.tid=".$tid." AND status = 1);";
+        case 1:    $sql = "SELECT * FROM `subjectlist` WHERE subid IN (SELECT s.subid FROM teacher_subject s WHERE s.tid=".$tid." AND status = 1) AND status = 1;";
         break;
         default:    $sql = "SELECT * FROM `subjectlist` ORDER BY name ;";
         break;     

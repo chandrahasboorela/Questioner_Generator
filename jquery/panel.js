@@ -4,10 +4,15 @@ function setSubjectsList(){
     $.ajax({
         type: "POST",
         url: "getsubjectslist.php",
+        data:{
+            mode:1,
+            tid:$("input[name='tid']").val(),
+
+        },
         success: function (e) {
             //console.log(e);
             if(e.status==1){
-                var html = '';
+                var html = '<option value="" selected disabled hidden>Choose Subject</option>';
                 e.data.forEach(element => {
                 html+="<option value='"+element.subid+"' >"+element.name+"</option>";
                 });

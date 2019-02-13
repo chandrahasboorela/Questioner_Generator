@@ -3,6 +3,7 @@
     border: 0px;
     border-radius: 5px;
     padding: 10px;
+    transition: all 0.4s ease-out;
 }
 
 .pan{

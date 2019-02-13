@@ -2,7 +2,7 @@
 <?php
     session_start();
     if(isset($_SESSION["key"]) && $_SESSION["key"]=="9FOj92VfeSbTQ54M"){
-        header("Location:panel.php");
+        header("Location:adminpanel.php");
     }
     if(isset($_SESSION['errormsg'])){
         $msg = $_SESSION['errormsg'];

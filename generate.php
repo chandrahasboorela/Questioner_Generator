@@ -4,10 +4,10 @@
     $_SERVER["REQUEST_METHOD"] == "POST";
     $subid= isset($_POST['subid'])?$_POST['subid']:'';
     if(!(isset($_SESSION['key']) && $_SESSION['key'] =="9FOj92VfeSbTQ54M")){
-            header("Location:error.html");
+                                        echo "<script>alert('Insufficient Questions!');close();</script>";
     }else{
         if(!isset($_POST['subid']))
-            header("Location:error.html");
+                                        echo "<script>alert('Insufficient Questions!');close();</script>";
     }
    
 ?>
@@ -18,7 +18,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="theme-color" content="#2c445c">
         <meta name="mobile-web-app-capable" content="yes">
-        <link rel="shortcut icon" href="../images/icon.png">
+        <link rel="shortcut icon" href="images/icon.png">
                                     <style>
                                     @page { margin: 0.5cm }
                                     @page :first {
@@ -110,7 +110,7 @@
                                             $subcode = $row['subcode'];                                        
                                     }
                                     else{
-                                        header("Location:error.html");
+                                        echo "<script>alert('Insufficient Questions!');close();</script>";
                                     }
                                     $subname = strtoupper($subname);
                                     echo <<<EOL
@@ -151,6 +151,7 @@ EOL;
                                 $marks10 = array();   
                                 while ($row = $result->fetch_assoc()) {
                                     if($row['total']<1 || $result->num_rows != 15){
+                                        echo "<script>alert('Insufficient Questions!');close();</script>";
                                        return 0;
                                     }
                                         $end = $end+$row['total'];
@@ -199,6 +200,7 @@ EOL;
                                         $qno = 1;
                                         echo '<tr><td align="right">1.</td><td></td><td></td></tr>';
                                         if(count($out)<0){
+                                        echo "<script>alert('Insufficient Questions!');close();</script>";
                                             return;
                                         }
                                             
@@ -316,11 +318,11 @@ EOL;
                                             
                                     }
                                     else{
-                                        header("Location:error.html");
+                                        echo "<script>alert('Insufficient Questions!');close();</script>";
                                     }
                             }
                             else{
-                                header("Location:error.html");
+                                        echo "<script>alert('Insufficient Questions!');close();</script>";
                             }
                             $conn->close();     
                 }

@@ -74,6 +74,7 @@ EOL;
     <div>
         <a class="tab" href="#add-teacher">Add Teacher</a>
         <a class="tab" href="#add-subject">Add Subject</a>
+        <a class="tab" href="#manage-teacher">Manage Teachers</a>
         <a class="tab" href="#manage-subject">Manage Subjects</a>
         <a class="tab" href="#add-teacher-sub">Add Subject to Teacher</a>
         <a class="tab" href="#manage-teacher-sub">Manage Teachers and Subjects</a>
@@ -98,7 +99,7 @@ EOL;
       </div>
       <div class="row">
           <label class="col-4" for="password">password</label>
-          <input class="col-8 form-control row " name="password" type="password" id="password" placeholder="password  for login " >
+          <input class="col-8 form-control row pwd" name="password" type="password" id="password" placeholder="password  for login " minlength="8" >
           <div class="col-4">&nbsp;</div>
           <i class="col-8">By default a 8 length random number is given as Password</i>
     </div>
@@ -130,6 +131,44 @@ EOL;
          
           </div>
       </div>
+      <hr>
+      <div class="jumbotron" id='manage-teacher'>
+        <h2>Manage Teachers&nbsp;<i class="fas fa-sync-alt btn btn-outline-success" id='reload-manage-tid'></i></h2>
+        <hr>
+        <div class="row">
+            <label class="col-4" >Select Teacher</label>
+            <select class=" col-8 form-control teacherlist" name="teachers-list" title="select subject" id="m-tid">
+
+            </select>
+        </div>
+        <div class="container">
+            <hr>
+        </div>
+        <div class="row">
+            <label class="col-4" >Id</label>
+            <input class="col-8 form-control row " name="id" type="text" id="m-id" placeholder="id used for login " >
+        </div>
+        <div class="row">
+            <label class="col-4" >Name</label>
+            <input class="col-8 form-control row " name="Name" type="text" id="m-name" placeholder="Name " >
+        </div>
+        <div class="row">
+            <label class="col-4" >Email</label>
+            <input class="col-8 form-control row " name="email" type="email" id="m-email" placeholder="email of user " >
+        </div>
+        <div class="row">
+            <label class="col-4" >password</label>
+            <input class="col-8 form-control row pwd" name="password" type="password" id="m-password" placeholder="password  for login " minlength="8" >
+            <div class="col-4">&nbsp;</div>
+      </div>
+      
+      <div class="mb-3 flex text-right">
+          <input class='btn btn-info pull-right pr-5 pl-5' type="button" value="Update Teacher details" id='update-t-btn'>
+        </div>
+        <div class="alert alert-warning" role="alert">
+            
+          </div>
+          </div>
       <hr>
     <div class="jumbotron" id='manage-subject'>
         <h2>Manage Subjects &nbsp;<i class="fas fa-sync-alt btn btn-outline-success" id='reload-manage-subs'></i></h2>

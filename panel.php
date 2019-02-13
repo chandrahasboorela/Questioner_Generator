@@ -324,7 +324,7 @@ if(!isset($_SESSION["key"]) && $_SESSION["key"]!="9FOj92VfeSbTQ54M"){
             </div>
         </div>
         <div id="end"></div>
-
+        <input type="hidden" name="tid" value='<?php echo $_SESSION['tid'];?>'>
     </div>
     <script src="jquery/panel.js"></script>
 </body>

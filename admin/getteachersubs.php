@@ -11,7 +11,7 @@ if($conn->connect_error){
 else
 {   
     
-         $sql = "SELECT ts.sno,s.subid,s.name as subname,ts.tid,l.name as tname,ts.status FROM `subjectlist`s , `logindetails` l, `teacher_subject` ts WHERE ts.subid=s.subid AND ts.tid = l.sno ORDER BY tname,subname;";
+         $sql = "SELECT ts.sno,s.subid,s.name as subname,ts.tid,l.id,l.name as tname,ts.status FROM `subjectlist`s , `logindetails` l, `teacher_subject` ts WHERE ts.subid=s.subid AND ts.tid = l.sno ORDER BY tname,subname;";
         //echo $sql;
             $result = $conn->query($sql);
             if ($result->num_rows > 0) 

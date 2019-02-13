@@ -13,7 +13,14 @@ function alertMsg(e,id,m=1){
         $(id).css("opacity", '0.6'); 
     }, 1000);
 }
-
+//clean manage teachers inputs
+function cleanManageInputs(){
+    $("#m-id").val('');
+    $("#m-name").val('');
+    $("#m-email").val('');
+    $("#m-password").val('');
+    $("#m-tid").val('');
+}
 function setSubList(){
     $.ajax({
         type: "POST",
@@ -46,9 +53,9 @@ function setTeacherList(){
             if(e.status==1){
                 var html = '<option value="" selected disabled hidden>Choose Teacher</option>';
                 e.data.forEach(element => {
-                html+="<option value='"+element.sno+"' >"+element.name+"</option>";
+                html+="<option value='"+element.sno+"' >"+element.name+'&nbsp;('+element.id+")</option>";
                 });
-                $("#teacher-list").html(html);
+                $('.teacherlist').html(html);
                 alertMsg('  Fetched Teachers list.','add-teacher-sub');
             }else{
                 alertMsg('Error! Fetching Teacher List.','add-teacher-sub');
@@ -59,6 +66,36 @@ function setTeacherList(){
         }
     });
 }
+//set manage teacher fields 
+function setmanageteacher(){
+    var tid = $("#m-tid").val();
+    $.ajax({
+        type: "POST",
+        url: "../admin/getteacherslist.php",
+        success: function (e) {
+            //console.log(e);
+            if(e.status==1){
+                for(var i=0;i<e.data.length;i++){
+                        if(e.data[i].sno==tid){
+                        $('#m-id').val(e.data[i].id);
+                        $('#m-name').val(e.data[i].name);
+                        $('#m-email').val(e.data[i].email);
+                        $('#m-password').val(e.data[i].pwd);
+                        break;
+                    }
+                }
+                    //console.log(i);
+                alertMsg("  Fetched Teacher's Details.','manage-teacher");
+            }else{
+                alertMsg("Error! Fetching Teacher's Details.','manage-teacher");
+            }
+        },
+        error:()=>{
+            alertMsg("failed to fetch details of teacher!",'manage-teacher');
+        }
+    });
+}
+
 //logs 
 function setlogs(){
     $.ajax({
@@ -71,12 +108,12 @@ function setlogs(){
                 var html = "<h4> </h4><h3>admin' log</h3>";
                 html+=head;
                 e.data.forEach(element => {
-                html+='<div class="row bg-light p-1">                <span class="col-md-1 col-lg-1 col-sm-2 border-right">'+element.sno+'</span>            <span class="col-md-4 col-lg-4 col-sm-10 border-right">'+element.name+'</span>                <span class="col-md-2 col-lg-2 col-sm-10 border-right">'+element.id+'</span>                <span class="col-md-2 col-lg-2 col-sm-10 border-right">'+element.ip+'</span>                <span class="col-md-3 col-lg-3 col-sm-10 border-right">'+element.timestamp+'</span>             </div>';
+                html+='<div class="row bg-light p-1 l-row ">                <span class="col-md-1 col-lg-1 col-sm-2 border-right">'+element.sno+'</span>            <span class="col-md-4 col-lg-4 col-sm-10 border-right">'+element.name+'</span>                <span class="col-md-2 col-lg-2 col-sm-10 border-right">'+element.id+'</span>                <span class="col-md-2 col-lg-2 col-sm-10 border-right">'+element.ip+'</span>                <span class="col-md-3 col-lg-3 col-sm-10 border-right">'+element.timestamp+'</span>             </div>';
                 });
                 html+="<hr><h3>Teachers' log</h3>";
                 html+=head;
                 e.data1.forEach(element => {
-                    html+='<div class="row bg-light p-1">                <span class="col-md-1 col-lg-1 col-sm-2 border-right">'+element.sno+'</span>            <span class="col-md-4 col-lg-4 col-sm-10 border-right">'+element.name+'</span>                <span class="col-md-2 col-lg-2 col-sm-10 border-right">'+element.id+'</span>                <span class="col-md-2 col-lg-2 col-sm-10 border-right">'+element.ip+'</span>                <span class="col-md-3 col-lg-3 col-sm-10 border-right">'+element.timestamp+'</span>             </div>';
+                    html+='<div class="row bg-light p-1  l-row">                <span class="col-md-1 col-lg-1 col-sm-2 border-right">'+element.sno+'</span>            <span class="col-md-4 col-lg-4 col-sm-10 border-right">'+element.name+'</span>                <span class="col-md-2 col-lg-2 col-sm-10 border-right">'+element.id+'</span>                <span class="col-md-2 col-lg-2 col-sm-10 border-right">'+element.ip+'</span>                <span class="col-md-3 col-lg-3 col-sm-10 border-right">'+element.timestamp+'</span>             </div>';
                     });
                 $("#m-logs").html(html);
                 alertMsg('Fetched logs.','viewlog');
@@ -99,7 +136,7 @@ function manageSublist(){
             if(e.status==1){
                 var html = '';
                 e.data.forEach(element => {
-                html+='<div class="row bg-light p-1">                <span class="col-md-1 col-lg-1 col-sm-2 border-right">'+element.subid+'</span>                <span class="col-md-6 col-lg-6 col-sm-10 border-right">'+element.name+'</span>                <span class="col-md-3 col-lg-3 col-sm-10 border-right">'+element.subcode+'</span>                <span class="col-md-2 col-lg-2 col-sm-2">';
+                html+='<div class="row bg-light p-1 l-row">                <span class="col-md-1 col-lg-1 col-sm-2 border-right">'+element.subid+'</span>                <span class="col-md-6 col-lg-6 col-sm-10 border-right">'+element.name+'</span>                <span class="col-md-3 col-lg-3 col-sm-10 border-right">'+element.subcode+'</span>                <span class="col-md-2 col-lg-2 col-sm-2">';
                 if(element.status==1){
                     html+='<input type="checkbox" class="form-control m-sub-ck"  id="'+element.subid+'" checked="true"></span>            </div>';
                 }else{
@@ -151,7 +188,7 @@ function manageTeacherSublist(){
             if(e.status==1){
                 var html = '';
                 e.data.forEach(element => {
-                html+='<div class="row bg-light p-1">                <span class="col-md-1 col-lg-1 col-sm-2 border-right">'+element.sno+'</span>                <span class="col-md-5 col-lg-5 col-sm-10 border-right">'+element.tname+'</span>                <span class="col-md-4 col-lg-4 col-sm-10 border-right">'+element.subname+'</span>                <span class="col-md-2 col-lg-2 col-sm-2">';
+                html+='<div class="row bg-light p-1 l-row">                <span class="col-md-1 col-lg-1 col-sm-2 border-right">'+element.sno+'</span>                <span class="col-md-5 col-lg-5 col-sm-10 border-right">'+element.tname+'&nbsp;('+element.id+')</span>                <span class="col-md-4 col-lg-4 col-sm-10 border-right">'+element.subname+'</span>                <span class="col-md-2 col-lg-2 col-sm-2">';
                 if(element.status==1){
                     html+='<input type="checkbox" class="form-control m-ts-ck"  id="'+element.sno+'" checked="true"></span>            </div>';
                 }else{
@@ -199,9 +236,17 @@ setTeacherList();
 setSubList();
 manageSublist();
 setlogs();
+$('#m-tid').change(function (e) { 
+    //e.preventDefault();
+    setmanageteacher();
+});
 $("#reload-teacher-subs").click(function () { 
     setTeacherList();
     setSubList();    
+});
+$("#reload-manage-tid").click(function () { 
+    setTeacherList();
+    cleanManageInputs();
 });
 $("#reload-manage-subs").click(function () { 
     manageSublist();   
@@ -212,7 +257,9 @@ $("#reload-viewlog").click(function () {
 $("#reload-manage-tsubs").click(function () { 
     manageTeacherSublist();
 });
-$("#add-t-btn").click(function () { 
+$("#add-t-btn").click(function () {
+    var pwd = $('#password').val();
+    if(pwd.length >= 8){ 
     $.ajax({
         type: "POST",
         url: "../admin/addteacher.php",
@@ -233,7 +280,9 @@ $("#add-t-btn").click(function () {
         error:()=>{
             alertMsg('ajax error','add-teacher');
         }
-    });
+    });}else{
+        alertMsg('Password must be min 8 Characters','add-teacher');
+    }
 });
 
 $("#add-s-btn").click(function (e) { 
@@ -255,6 +304,33 @@ $("#add-s-btn").click(function (e) {
         }
     });
 });
+
+$("#update-t-btn").click(function () {
+    var pwd = $('#m-password').val();
+    if(pwd.length >= 8){ 
+    $.ajax({
+        type: "POST",
+        url: "../admin/updateteacher.php",
+        data: {
+            id:$("#m-id").val(),
+            name:$("#m-name").val(),
+            email:$("#m-email").val(),
+            password:$("#m-password").val(),
+            tid:$("#m-tid").val()
+        },
+        success: function (e) {
+            alertMsg(e.msg,'manage-teacher');
+            cleanManageInputs();
+        },
+        error:()=>{
+            alertMsg('ajax error','manage-teacher');
+        }
+    });
+    }else{
+        alertMsg('Password must be min 8 Characters','manage-teacher');
+    }
+});
+
 
 $("#add-ts-btn").click(function (e) { 
     e.preventDefault();
