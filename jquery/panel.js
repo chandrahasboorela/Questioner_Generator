@@ -181,15 +181,7 @@ function getQuestions(id,subid,m){
                  i++;
             });
             $(id).html(html);
-            
-
-        },
-        error:function () {
-            alertMsg("Ajax Error!!");
-          }
-        });
-}
-//delete question
+            //delete question
 $(".del-btn").click(function (e) { 
     e.preventDefault();
     var subid = $(this).attr('title');
@@ -244,6 +236,14 @@ $('.edit-btn').click(function (e) {
         }
     });
 });
+
+        },
+        error:function () {
+            alertMsg("Ajax Error!!");
+          }
+        });
+}
+
 //unlink photo
 $(".rm-img").click(function (e) { 
     e.preventDefault();
