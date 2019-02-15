@@ -11,7 +11,10 @@ if($conn->connect_error){
 }
 else
 {   
-    
+    if($subid == 0){
+        $json = array("status" => 0, "msg" => "INPUT Error!!");
+
+    }else{
       //end function
     $sql = "SELECT * FROM `".$subid."` ORDER BY marks,unit ;";       
         //echo $sql;
@@ -44,6 +47,7 @@ else
             else
                 $json = array("status" => $flag,"msg"=>"no records");
             $conn->close();     
+}
 }
 }
 else{

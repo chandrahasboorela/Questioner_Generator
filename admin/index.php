@@ -48,9 +48,9 @@ EOL;
         <h1>Admin Login</h1>
         <form class="col-12" action="adminloginvalidate.php"  method="POST" >
             <p>user name</p>
-            <input type="text" name="username" placeholder=" Enter user name">
+            <input type="text" name="username" placeholder=" Enter user name" require>
             <p>password</P>
-            <input type="password" name="password" placeholder=" Enter password" minlength	= '8'>
+            <input type="password" name="password" placeholder=" Enter password" minlength	= '8' require>
             <input type="submit" name="submit" <?php if(isset($_SESSION['failed'])) if($_SESSION['failed']==1) echo 'style="margin-bottom: 10px;"';?> value="login">
             <?php 
             if(isset($_SESSION['failed']))

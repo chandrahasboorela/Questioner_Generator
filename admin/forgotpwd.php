@@ -52,14 +52,14 @@ EOL;
         <h1><b>Admin Forgot Password</b></h1>
         <form class="col-12" action="resetpwd.php" method="POST">
             <p>Username</p>
-            <input type="text" name="username" id='username' required="required" placeholder=" Enter user name">
+            <input type="text" name="username" id='username' required="required" placeholder=" Enter user name" require>
             <p>Regesterd email</P>
-            <input type="email" name="email" id='email' required="required" placeholder=" Enter email">
+            <input type="email" name="email" id='email' required="required" placeholder=" Enter email" require>
             <span id="info">Sending email...</span>
             <button class="w-full btn btn-warning mb-1 fa-pull-right" id='otp-btn' type="button">Send OTP</button><br>
 
             <br>
-            <input type="number" name="otp" placeholder="Enter recived pin">
+            <input type="number" name="otp" placeholder="Enter recived pin" require>
             <input style='margin-bottom: 0px;' type="submit" name="submit" value="Submit">
             <a  href="index.php">back to login</a>   
         </form>

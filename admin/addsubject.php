@@ -36,7 +36,7 @@ else
                         $result1 = $conn->query("CREATE TABLE `".$dbname."`.`".$subid."` ( `sno` INT NOT NULL AUTO_INCREMENT , `question` VARCHAR(700) NOT NULL , `comment` VARCHAR(500) NOT NULL , `unit` INT(2) NOT NULL , `marks` INT(2) NOT NULL , `tid` INT NOT NULL , PRIMARY KEY (`sno`) ,FOREIGN KEY (tid) REFERENCES logindetails(sno)) ");
                         
                         if($result1){
-                            mkdir("questionImages/".$subid);
+                            mkdir("../questionImages/".$subid);
                             $json = array("status" => 1,"msg" => "added Successfully:  ".$subname.",   Created Table Successfully : ".$subid);
                         }
                         else

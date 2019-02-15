@@ -12,7 +12,7 @@ function setSubjectsList(){
         success: function (e) {
             //console.log(e);
             if(e.status==1){
-                var html = '<option value="" selected disabled hidden>Choose Subject</option>';
+                var html = '<option value="0" selected disabled hidden>Choose Subject</option>';
                 e.data.forEach(element => {
                 html+="<option value='"+element.subid+"' >"+element.name+"</option>";
                 });
@@ -181,61 +181,7 @@ function getQuestions(id,subid,m){
                  i++;
             });
             $(id).html(html);
-            //delete question
-            $(".del-btn").click(function (e) { 
-                e.preventDefault();
-                var subid = $(this).attr('title');
-                var qno = $(this).attr('id');
-                qno = qno.substr(1);
-                if (confirm("Delete Question ?")) {
-                    $.ajax({
-                        type: "POST",
-                        url: "deletequestion.php",
-                        data: {
-                            subid:subid,
-                            qno:qno
-                        },
-                        success: function (e) {
-                            alertMsg(e.msg);
-                            $("#delete-view").click();
-                        },
-                        error:function(e){
-                            alertMsg("File Uploaded Error:Ajax");
-                        }
-                    });
-                  }
-            });
-            //edit question
-            $('.edit-btn').click(function (e) { 
-                e.preventDefault();
-                $("#panel-edit").css({'display':'none'});
-                $("#panel-insert").css({'display':'block'});
-                $("#submit").css({'display':'none'});
-                $("#edit-submit").css({'display':'block'});
-                var subid = $(this).attr('title');
-                var qno = $(this).attr('id');
-                qno = qno.substr(1);
-                $.ajax({
-                    type: "POST",
-                    url: "getquestion.php",
-                    data: {
-                        subid:subid,
-                        qno:qno
-                    },
-                    success: function (e) {
-                        //console.log(e);
-                        $("#question").val(e.data[0].question);
-                        $("#marks").val(e.data[0].marks);
-                        $("#comment").val(e.data[0].comment);
-                        $("#subject").val(subid);
-                        $("#unit").val(e.data[0].unit);
-                        $(".qno").html(e.data[0].sno);
-                    },
-                    error:function(e){
-                        alertMsg("File Uploaded Error:Ajax");
-                    }
-                });
-            });
+            
 
         },
         error:function () {
@@ -243,7 +189,61 @@ function getQuestions(id,subid,m){
           }
         });
 }
-
+//delete question
+$(".del-btn").click(function (e) { 
+    e.preventDefault();
+    var subid = $(this).attr('title');
+    var qno = $(this).attr('id');
+    qno = qno.substr(1);
+    if (confirm("Delete Question ?")) {
+        $.ajax({
+            type: "POST",
+            url: "deletequestion.php",
+            data: {
+                subid:subid,
+                qno:qno
+            },
+            success: function (e) {
+                alertMsg(e.msg);
+                $("#delete-view").click();
+            },
+            error:function(e){
+                alertMsg("File Uploaded Error:Ajax");
+            }
+        });
+      }
+});
+//edit question
+$('.edit-btn').click(function (e) { 
+    e.preventDefault();
+    $("#panel-edit").css({'display':'none'});
+    $("#panel-insert").css({'display':'block'});
+    $("#submit").css({'display':'none'});
+    $("#edit-submit").css({'display':'block'});
+    var subid = $(this).attr('title');
+    var qno = $(this).attr('id');
+    qno = qno.substr(1);
+    $.ajax({
+        type: "POST",
+        url: "getquestion.php",
+        data: {
+            subid:subid,
+            qno:qno
+        },
+        success: function (e) {
+            //console.log(e);
+            $("#question").val(e.data[0].question);
+            $("#marks").val(e.data[0].marks);
+            $("#comment").val(e.data[0].comment);
+            $("#subject").val(subid);
+            $("#unit").val(e.data[0].unit);
+            $(".qno").html(e.data[0].sno);
+        },
+        error:function(e){
+            alertMsg("File Uploaded Error:Ajax");
+        }
+    });
+});
 //unlink photo
 $(".rm-img").click(function (e) { 
     e.preventDefault();

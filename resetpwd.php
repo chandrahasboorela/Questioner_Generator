@@ -97,9 +97,9 @@
         <pre style='color:orange;font-size:16px;' >Username: <?php echo $name;?></pre >
         <form id='target' class="col-12" action="updatepwd.php" method="POST" >
             <p>New Password</p>
-            <input type="password" name="newpwd" placeholder="Enter New password" minlength	= '8'>
+            <input type="password" name="newpwd" placeholder="Enter New password" minlength	= '8' require>
             <p> Re-Enter Password</P>
-            <input type="password" name="renewpwd" placeholder="Re-enter New password" minlength	= '8'>
+            <input type="password" name="renewpwd" placeholder="Re-enter New password" minlength	= '8' require>
             <input type="hidden" name="sno" value="<?php echo $sno;?>">
             <input type="submit" name="reset" value="reset" id='submit'>
         </form>

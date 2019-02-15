@@ -10,7 +10,6 @@
         }
         else
         {   
-            
             $stmt = $conn->prepare("SELECT sno,name from logindetails where email = ? and id = ?  and Status = 1;");
             $stmt->bind_param("ss", $email,$id);
             $stmt->execute();
